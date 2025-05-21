@@ -71,7 +71,6 @@ def home():
     </head>
     <body>
         <div class="container">
-            <h1>Bienvenue sur Inspectobot&nbsp;!</h1>
             <iframe
                 class="chatbot-iframe"
                 src="{iframe_url}"
