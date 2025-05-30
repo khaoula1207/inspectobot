@@ -1,7 +1,27 @@
-from flask import Flask, render_template_string
+from flask import Flask, render_template_string, request, jsonify
+from flask_sqlalchemy import SQLAlchemy
+import datetime
 import os
 
 app = Flask(__name__)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
+    'DATABASE_URL',
+    'postgresql://inspectobot_db_user:9QAeLY5zrTmRwOKuc0OX5b2MeYiH8Mi8@dpg-d0sf8249c44c73f4fr00-a/inspectobot_db'  
+)
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
+
+class ChatLog(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.String(80))
+    question = db.Column(db.Text)
+    answer = db.Column(db.Text)
+    timestamp = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+
+@app.before_first_request
+def create_tables():
+    db.create_all()
 
 @app.route('/')
 def home():
@@ -81,6 +101,18 @@ def home():
     </html>
     """
     return render_template_string(html)
+
+@app.route('/api/log_conversation', methods=['POST'])
+def log_conversation():
+    data = request.json
+    chat = ChatLog(
+        user_id=data.get('user_id'),
+        question=data.get('question'),
+        answer=data.get('answer')
+    )
+    db.session.add(chat)
+    db.session.commit()
+    return jsonify({'status': 'logged'}), 201
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 10000))
