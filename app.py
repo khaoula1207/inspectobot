@@ -18,8 +18,8 @@ class ChatLog(db.Model):
     question = db.Column(db.Text)
     answer = db.Column(db.Text)
     timestamp = db.Column(db.DateTime, default=datetime.datetime.utcnow)
-
-
+with app.app_context():
+    db.create_all()
 
 @app.route('/')
 def home():
