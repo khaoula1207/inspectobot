@@ -19,9 +19,7 @@ class ChatLog(db.Model):
     answer = db.Column(db.Text)
     timestamp = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
-@app.before_first_request
-def create_tables():
-    db.create_all()
+
 
 @app.route('/')
 def home():
@@ -115,6 +113,9 @@ def log_conversation():
     return jsonify({'status': 'logged'}), 201
 
 if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
     port = int(os.environ.get('PORT', 10000))
     app.run(host='0.0.0.0', port=port)
+
 
