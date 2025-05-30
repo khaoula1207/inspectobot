@@ -1,4 +1,8 @@
 flask
 gunicorn
 flask_sqlalchemy
+<<<<<<< HEAD
 psycopg2-binary
+=======
+psycopg2-binary
+>>>>>>> ae3de29683d3b2b2efdda007b60c79c27b3902af
