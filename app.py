@@ -5,8 +5,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-iframe_url = "https://copilotstudio.microsoft.com/environments/Default-37921931-3dbf-4176-ba5b-bd16c6a70568/bots/crc0f_assistant_QTHcos/canvas?__version__=2&enableFileAttachment=true"
-html = f"""
+    iframe_url = "https://copilotstudio.microsoft.com/environments/Default-37921931-3dbf-4176-ba5b-bd16c6a70568/bots/crc0f_assistant_QTHcos/canvas?__version__=2&enableFileAttachment=true"
+    html = f"""
 <!DOCTYPE html>
 <html lang="fr">
 <head>
