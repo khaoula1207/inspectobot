@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    iframe_url ="https://copilotstudio.microsoft.com/environments/Default-37921931-3dbf-4176-ba5b-bd16c6a70568/bots/crc0f_assistant/canvas?__version__=2&enableFileAttachment=true"
+    iframe_url = "https://copilotstudio.microsoft.com/environments/Default-37921931-3dbf-4176-ba5b-bd16c6a70568/bots/crc0f_assistant/canvas?__version__=2&enableFileAttachment=true"
     html = f"""
 <!DOCTYPE html>
 <html lang="fr">
@@ -17,24 +17,28 @@ def home():
         body {{
             margin: 0;
             padding: 0;
-            background: #f6f6f6;
+            background: linear-gradient(135deg, #f6f6f6 70%, #eaf0f6 100%);
             font-family: 'Segoe UI', Arial, sans-serif;
         }}
         .header {{
             background: #0a2043;
-            color: #d90429; /* red instead of gold */
-            padding: 24px 0 12px 0;
+            color: #d90429;
+            padding: 36px 0 12px 0;
             text-align: center;
-            font-size: 2.7rem;
-            font-weight: bold;
+            font-size: 2.8rem;
+            font-weight: 800;
             letter-spacing: 1px;
-            box-shadow: 0 4px 24px rgba(10,32,67,0.11);
+            box-shadow: 0 4px 32px rgba(10,32,67,0.08);
+            border-bottom-left-radius: 24px;
+            border-bottom-right-radius: 24px;
         }}
         .subtitle {{
             color: #fff;
-            font-size: 1.2rem;
-            margin-top: 6px;
+            font-size: 1.18rem;
+            margin-top: 8px;
             margin-bottom: 18px;
+            font-weight: 400;
+            letter-spacing: .5px;
         }}
         .container {{
             display: flex;
@@ -42,48 +46,67 @@ def home():
             align-items: center;
             justify-content: flex-start;
             min-height: 80vh;
-            padding: 4vw 1vw 2vw 1vw;
+            padding: 5vw 1vw 2vw 1vw;
         }}
         .card {{
             background: #fff;
-            border: 2px solid #d90429; /* red border instead of gold */
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(10,32,67,0.12);
-            padding: 24px 24px 18px 24px;
-            max-width: 480px;
+            border: 2.5px solid #d90429;
+            border-radius: 24px;
+            box-shadow: 0 8px 36px 0 rgba(10,32,67,0.10), 0 1.5px 6px #d904291a;
+            padding: 28px 32px 22px 32px;
+            max-width: 520px;
             width: 100%;
-            margin-top: 32px;
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            transition: box-shadow 0.3s;
+        }}
+        .card:hover {{
+            box-shadow: 0 10px 50px 0 rgba(217,4,41,0.11), 0 4px 20px #0a204350;
         }}
         .chatbot-iframe {{
             width: 100%;
-            height: 68vh;
-            min-height: 420px;
+            height: 67vh;
+            min-height: 370px;
             border: none;
-            border-radius: 12px;
-            box-shadow: 0 2px 20px #d9042925; /* subtle red shadow */
+            border-radius: 14px;
+            box-shadow: 0 3px 28px #d9042924;
             margin-top: 8px;
             background: #fff;
-            transition: box-shadow 0.2s;
+            transition: box-shadow 0.18s;
         }}
         .footer {{
             text-align: center;
             color: #222;
-            margin-top: 34px;
-            font-size: 1rem;
+            margin-top: 40px;
+            margin-bottom: 24px;
+            font-size: 1.05rem;
+            opacity: 0.82;
         }}
-        @media (max-width: 600px) {{
-            .card {{
-                padding: 10px 2vw 8px 2vw;
+        @media (max-width: 700px) {{
+            .header {{
+                font-size: 2rem;
+                padding: 14px 0 7px 0;
                 border-radius: 0;
-                max-width: 99vw;
+            }}
+            .subtitle {{
+                font-size: 1rem;
+            }}
+            .card {{
+                padding: 12px 3vw 9px 3vw;
+                border-radius: 0;
+                max-width: 100vw;
+                margin-top: 14px;
             }}
             .chatbot-iframe {{
-                min-height: 330px;
+                min-height: 210px;
                 border-radius: 0;
             }}
+        }}
+        @media (max-width: 400px) {{
             .header {{
-                font-size: 1.5rem;
-                padding: 12px 0 8px 0;
+                font-size: 1.1rem;
             }}
         }}
     </style>
@@ -108,7 +131,6 @@ def home():
 </body>
 </html>
 """
-
     return render_template_string(html)
 
 if __name__ == '__main__':
